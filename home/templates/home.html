@@ -1,0 +1,6 @@
+<h1>Olá mundo</h1>
+<form action="/home/" method="POST">
+  {% csrf_token %}
+  <input type="text" name="nome" />
+  <input type="submit" value="Salvar" />
+</form>

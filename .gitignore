@@ -1,0 +1,14 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+# Virtual environment
+.venv/
+
+# Django
+*.pyc
+__pycache__/
+db.sqlite3
+
+# IDEs
+.vscode/
+.idea/
+
