@@ -16,8 +16,25 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.contrib.sitemaps.views import sitemap
+from .sitemaps import UsuarioSitemap
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('usuarios.urls')),
 ]
+
+urlpatterns += [
+    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
+]
+
+sitemaps = {
+    'usuarios': UsuarioSitemap,
+}
+
+urlpatterns += [
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='sitemap'),
+]
+
+
