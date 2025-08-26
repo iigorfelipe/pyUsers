@@ -3,6 +3,7 @@ from .models import Usuario
 from .forms import UsuarioForm
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods, require_POST
+from django.db.models import Q
 
 @require_http_methods(["GET", "POST"])
 def usuario_list_create(request):
@@ -18,8 +19,18 @@ def usuario_list_create(request):
             messages.error(request, "Preencha todos os campos corretamente.")
         return redirect("usuarios:home")
 
+    query = request.GET.get("q", "").strip()
     usuarios = Usuario.objects.order_by("-criado_em")
-    return render(request, "usuarios/usuarios.html", {"usuarios": usuarios})
+
+    if query:
+        usuarios = usuarios.filter(
+            Q(nome__icontains=query) |
+            Q(email__icontains=query) |
+            Q(cidade__icontains=query) |
+            Q(estado__icontains=query)
+        )
+
+    return render(request, "usuarios/usuarios.html", {"usuarios": usuarios, "q": query})
 
 
 @require_POST
