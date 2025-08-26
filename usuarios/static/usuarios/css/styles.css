@@ -14,3 +14,8 @@
   min-width: 250px;
   margin-bottom: 0.5rem;
 }
+
+#clearFilterBtn {
+  height: 40px;
+  width: 150px;
+}
