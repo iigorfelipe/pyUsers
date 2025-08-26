@@ -1,0 +1,66 @@
+{% extends 'usuarios/base.html' %} {% block title %}Gerenciamento de Usuários{% endblock %} {% block content
+%} {% include 'usuarios/modals.html' %}
+
+<table class="table align-middle mb-0">
+  <thead class="table-light">
+    <tr>
+      <th>Usuário</th>
+      <th>Cidade</th>
+      <th>Criado em</th>
+      <th class="text-end">Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in usuarios %}
+    <tr>
+      <td>
+        <div class="d-flex align-items-center">
+          <div class="avatar">{{ u.nome|slice:":1" }}</div>
+          <div class="ms-3">
+            <div class="fw-semibold">{{ u.nome }}</div>
+            <div class="text-muted small">{{ u.email }}</div>
+          </div>
+        </div>
+      </td>
+      <td>
+        <span title="{{ u.cidade_estado }}">{{ u.cidade_estado }}</span>
+      </td>
+      <td class="small text-muted">{{ u.criado_em|date:"d/m/Y H:i" }}</td>
+      <td class="text-end">
+        <div class="dropdown">
+          <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            &#x22EE;
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li>
+              <a
+                href="#"
+                class="dropdown-item update-btn"
+                data-id="{{ u.id }}"
+                data-nome="{{ u.nome }}"
+                data-email="{{ u.email }}"
+                data-estado="{{ u.estado }}"
+                data-cidade="{{ u.cidade }}"
+              >
+                Atualizar
+              </a>
+            </li>
+            <li>
+              <form method="POST" action="{% url 'usuarios:deletar_usuario' u.id %}" class="d-inline">
+                {% csrf_token %}
+                <button class="dropdown-item text-danger">Deletar</button>
+              </form>
+            </li>
+          </ul>
+        </div>
+      </td>
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="4" class="text-center text-muted py-4">Nenhum usuário cadastrado.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

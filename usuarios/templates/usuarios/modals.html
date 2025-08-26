@@ -1,0 +1,39 @@
+<div class="modal fade" id="userModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" id="userForm" action="{% url 'usuarios:home' %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="userModalTitle">Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Nome</label>
+            <input type="text" class="form-control" name="nome" id="userNome" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-control" name="email" id="userEmail" required />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Estado</label>
+            <select class="form-select" name="estado" id="userEstado" required>
+              <option value="">Selecione um estado</option>
+            </select>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Cidade</label>
+            <select class="form-select" name="cidade" id="userCidade" required>
+              <option value="">Selecione uma cidade</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
+          <button class="btn btn-primary" type="submit">Salvar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
