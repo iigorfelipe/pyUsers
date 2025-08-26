@@ -4,26 +4,41 @@
       <form method="POST" id="userForm" action="{% url 'usuarios:home' %}">
         {% csrf_token %}
         <div class="modal-header">
-          <h5 class="modal-title" id="userModalTitle">Usuário</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <h5 class="modal-title" id="userModalTitle">Cadastrar ou Atualizar Usuário</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
         </div>
         <div class="modal-body">
+          <p>Preencha os campos abaixo para gerenciar informações do usuário.</p>
           <div class="mb-3">
-            <label class="form-label">Nome</label>
-            <input type="text" class="form-control" name="nome" id="userNome" required />
+            <label class="form-label" for="userNome">Nome</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nome"
+              id="userNome"
+              required
+              placeholder="Ex: João da Silva"
+            />
           </div>
           <div class="mb-3">
-            <label class="form-label">Email</label>
-            <input type="email" class="form-control" name="email" id="userEmail" required />
+            <label class="form-label" for="userEmail">Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="email"
+              id="userEmail"
+              required
+              placeholder="exemplo@email.com"
+            />
           </div>
           <div class="mb-3">
-            <label class="form-label">Estado</label>
+            <label class="form-label" for="userEstado">Estado</label>
             <select class="form-select" name="estado" id="userEstado" required>
               <option value="">Selecione um estado</option>
             </select>
           </div>
           <div class="mb-3">
-            <label class="form-label">Cidade</label>
+            <label class="form-label" for="userCidade">Cidade</label>
             <select class="form-select" name="cidade" id="userCidade" required>
               <option value="">Selecione uma cidade</option>
             </select>
@@ -31,7 +46,7 @@
         </div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">Cancelar</button>
-          <button class="btn btn-primary" type="submit">Salvar</button>
+          <button class="btn btn-primary" type="submit">Salvar Usuário</button>
         </div>
       </form>
     </div>

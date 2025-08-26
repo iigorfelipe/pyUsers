@@ -4,7 +4,25 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{% block title %}Meu App{% endblock %}</title>
+
+    <title>{% block title %}Gestão de Usuários - Cadastro e Administração{% endblock %}</title>
+    <meta
+      name="description"
+      content="Gerencie facilmente seus usuários cadastrando, atualizando e removendo informações como nome, email, cidade e estado. Plataforma ideal para administração de usuários em projetos Django."
+    />
+    <meta
+      name="keywords"
+      content="usuários, cadastro de usuários, gestão de usuários, Django, administração, email, cidade, estado"
+    />
+    <meta name="robots" content="index, follow" />
+
+    <meta property="og:title" content="Gestão de Usuários - Cadastro e Administração" />
+    <meta
+      property="og:description"
+      content="Gerencie facilmente seus usuários cadastrando, atualizando e removendo informações como nome, email, cidade e estado."
+    />
+    <meta property="og:type" content="website" />
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{% static 'usuarios/css/styles.css' %}" />
     {% block extra_css %}{% endblock %}

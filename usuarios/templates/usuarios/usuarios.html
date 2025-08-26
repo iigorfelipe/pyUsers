@@ -1,68 +1,91 @@
 {% extends 'usuarios/base.html' %}
-{% block title %}Gerenciamento de Usuários{% endblock %}
+{% block title %}Gestão de Usuários - Cadastro, Listagem e Administração{% endblock %}
 {% block content %}
 {% include 'usuarios/modals.html' %}
 
-<table class="table align-middle mb-0">
-  <thead class="table-light">
-    <tr>
-      <th>Usuário</th>
-      <th>Cidade</th>
-      <th>Criado em</th>
-      <th class="text-end">Ações</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for u in usuarios %}
-    <tr>
-      <td>
-        <div class="d-flex align-items-center">
-          <div class="avatar">{{ u.nome|slice:":1" }}</div>
-          <div class="ms-3">
-            <div class="fw-semibold">{{ u.nome }}</div>
-            <div class="text-muted small">{{ u.email }}</div>
-          </div>
-        </div>
-      </td>
-      <td>
-        <span title="{{ u.cidade_estado }}">{{ u.cidade_estado }}</span>
-      </td>
-      <td class="small text-muted">{{ u.criado_em|date:"d/m/Y H:i" }}</td>
-      <td class="text-end">
-        <div class="dropdown">
-          <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-            &#x22EE;
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li>
-              <a
-                href="#"
-                class="dropdown-item update-btn"
-                data-id="{{ u.id }}"
-                data-nome="{{ u.nome }}"
-                data-email="{{ u.email }}"
-                data-estado="{{ u.estado }}"
-                data-cidade="{{ u.cidade }}"
-              >
-                Atualizar
-              </a>
-            </li>
-            <li>
-              <form method="POST" action="{% url 'usuarios:deletar_usuario' u.id %}" class="d-inline">
-                {% csrf_token %}
-                <button class="dropdown-item text-danger">Deletar</button>
-              </form>
-            </li>
-          </ul>
-        </div>
-      </td>
-    </tr>
-    {% empty %}
-    <tr>
-      <td colspan="4" class="text-center text-muted py-4">Nenhum usuário cadastrado.</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<section aria-label="Lista de usuários cadastrados">
+  <p>Gerencie seus usuários cadastrados abaixo. Você pode adicionar novos usuários, atualizar dados existentes ou remover usuários obsoletos.</p>
 
+  <section aria-label="Filtro de usuários" class="mb-3">
+    <form id="filterForm" class="d-flex align-items-center gap-3" role="search">
+      <label for="filterInput" class="visually-hidden">Filtrar usuários</label>
+      <input 
+        type="text" 
+        id="filterInput" 
+        class="form-control"      
+        placeholder="Filtrar por nome, email, cidade ou estado..." 
+        value="{{ q|default:'' }}" 
+        aria-label="Filtrar usuários por nome, email, cidade ou estado"
+      />
+      <button type="button" id="clearFilterBtn" class="btn btn-outline-secondary" style="display: none;">
+        Limpar Filtro
+      </button>
+    </form>
+  </section>
+
+
+  <table class="table align-middle mb-0">
+    <thead class="table-light">
+      <tr>
+        <th scope="col">Usuário</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Criado em</th>
+        <th scope="col" class="text-end">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for u in usuarios %}
+      <tr>
+        <td>
+          <article class="d-flex align-items-center" aria-label="Usuário {{ u.nome }}">
+            <div class="avatar" aria-hidden="true">{{ u.nome|slice:":1" }}</div>
+            <div class="ms-3">
+              <div class="fw-semibold">{{ u.nome }}</div>
+              <div class="text-muted small">{{ u.email }}</div>
+            </div>
+          </article>
+        </td>
+        <td>
+          <span title="{{ u.cidade_estado }}">{{ u.cidade_estado }}</span>
+        </td>
+        <td class="small text-muted">{{ u.criado_em|date:"d/m/Y H:i" }}</td>
+        <td class="text-end">
+          <div class="dropdown">
+            <button class="btn btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Ações do usuário">
+              &#x22EE;
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li>
+                <a
+                  href="#"
+                  class="dropdown-item update-btn"
+                  data-id="{{ u.id }}"
+                  data-nome="{{ u.nome }}"
+                  data-email="{{ u.email }}"
+                  data-estado="{{ u.estado }}"
+                  data-cidade="{{ u.cidade }}"
+                >
+                  Atualizar
+                </a>
+              </li>
+              <li>
+                <form method="POST" action="{% url 'usuarios:deletar_usuario' u.id %}" class="d-inline">
+                  {% csrf_token %}
+                  <button class="dropdown-item text-danger">Deletar</button>
+                </form>
+              </li>
+            </ul>
+          </div>
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="4" class="text-center text-muted py-4">
+          Nenhum usuário cadastrado ainda. Comece cadastrando novos usuários usando o botão "Cadastrar Novo Usuário" acima.
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
 {% endblock %}
